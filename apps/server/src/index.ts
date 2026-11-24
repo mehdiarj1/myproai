@@ -58,6 +58,9 @@ app.use("/api", rateLimit, api);
 app.use("/sub", sub);
 
 const staticCandidates = [
+  // staged inside the server build output by scripts/stage-web.mjs — present
+  // in every runtime image because builders must ship apps/server/dist
+  path.join(path.dirname(fileURLToPath(import.meta.url)), "public"),
   path.join(process.cwd(), "public"),
   path.join(process.cwd(), "apps", "web", "dist"),
   path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "web", "dist"),
