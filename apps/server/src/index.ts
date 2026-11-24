@@ -12,6 +12,7 @@ import "dotenv/config";
 import http from "node:http";
 import path from "node:path";
 import fs from "node:fs";
+import { fileURLToPath } from "node:url";
 import express from "express";
 import cookieParser from "cookie-parser";
 import { config } from "./config.js";
@@ -59,6 +60,7 @@ app.use("/sub", sub);
 const staticCandidates = [
   path.join(process.cwd(), "public"),
   path.join(process.cwd(), "apps", "web", "dist"),
+  path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", "web", "dist"),
 ];
 const staticDir = staticCandidates.find((p) => fs.existsSync(p)) || staticCandidates[0];
 

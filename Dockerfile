@@ -24,7 +24,9 @@ COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/apps/server/package.json ./apps/server/package.json
 COPY --from=build /app/apps/server/dist ./apps/server/dist
-COPY --from=build /app/apps/web/dist ./public
+# frontend is pre-built and committed in the repo (apps/web/dist)
+# copy it straight from the build context so it always lands in the runtime image
+COPY apps/web/dist ./public
 
 ENV PORT=8080
 ENV SIDERAIL_DATA_DIR=/data
